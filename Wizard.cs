@@ -17,17 +17,21 @@ namespace HelloWorld
             _name = "Wizard";
 
     }
+
+        //Allows other ways to lower mana if spell is cast
         public int GetMana()
         {
             return _mana;
         }
 
+        //Overrides the BaseAttack to pick a scroll and lower mana per cast!
         public override float BaseAttack(Character enemy)
         {
             ScrollChoice();
             return base.BaseAttack(enemy);
         }
 
+        //The choices between the scroll types of damages 
         public void ScrollChoice()
         {
             Console.WriteLine("Which scroll would you like to use?");

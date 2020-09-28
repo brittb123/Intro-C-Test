@@ -96,7 +96,7 @@ namespace HelloWorld
             char input = Console.ReadKey().KeyChar;
             if (input == '1')
             {
-
+                //Adds player with the knight class and a Knight's Inventory
                 player1 = new Knight();
                
                 player1.AddItemToInv(_longsword, 0);
@@ -104,6 +104,7 @@ namespace HelloWorld
             }
             else if (input == '2')
             {
+                //Adds player with the Archer Class and with archery items
                 player1 = new Archer();
                 
                 player1.AddItemToInv(_fireScrolls, 0);
@@ -112,6 +113,7 @@ namespace HelloWorld
 
             else if (input == '3')
             {
+                //Add player with the wizard class with magic items
                 player1 = new Wizard();
                
                 player1.AddItemToInv(_fireScrolls, 0);
@@ -126,7 +128,7 @@ namespace HelloWorld
              input = Console.ReadKey().KeyChar;
             if (input == '1')
             {
-
+                //
                 player2 = new Knight();
               
                 player2.AddItemToInv(_longsword, 0);
@@ -176,6 +178,7 @@ namespace HelloWorld
                 Console.WriteLine("\nPlayer One's Turn: ");
                 GetInput("Attack", "Change Weapon", "Block", "What is your play");
                 input = Console.ReadKey().KeyChar;
+                //If player attacks as a Knight Attack with knight abilites
                 if (input == '1' && player1 is Knight)
                 {
                     Console.WriteLine("Player One Charges Player two and deals " + player1._damage);
@@ -184,8 +187,11 @@ namespace HelloWorld
 
                 }
 
+                // If the player is a Archer override the 
                 else if(input == '1' && player1 is Archer)
                 {
+
+
 
 
                 }

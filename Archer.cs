@@ -7,8 +7,11 @@ namespace HelloWorld
     class Archer : Character
     {
         private int _arrowcount;
+        // Does extra damage if above 80 health but lose damage belove 50 health
         private int _huntersFocus;
+        // Adds an extra +5 to damage for piercing arrows
         private int _huntersPiercing;
+        //Bandits and evil classes take more damage
         private int _banditHunter;
         private string _name;
 
