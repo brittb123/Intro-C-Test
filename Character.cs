@@ -7,11 +7,11 @@ namespace HelloWorld
 {
    public class Character
     {
-        private float _health;
+        protected float _health;
         private string _name;
         private float _defense;
         public float _damage;
-        private item[] _inventory;
+        public item[] _inventory;
         
 
       public  Character()
@@ -43,6 +43,7 @@ namespace HelloWorld
 
       public virtual float TakingDamage(float _damageVal)
       {
+            _damageVal -= _defense;
             _health -= _damageVal;
             if (_health < 0)
             {
@@ -51,6 +52,10 @@ namespace HelloWorld
             }
             return _damageVal;
       }
+        public void AddItemToInv(item item, int index)
+        {
+            _inventory[index] = item;
+        }
 
         public item[] GetInventory()
         {

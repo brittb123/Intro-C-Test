@@ -9,6 +9,7 @@ namespace HelloWorld
         private int _mana;
         private int _scrolls;
         private string _name;
+
     public Wizard() : base()
     {
             _mana = 100;
