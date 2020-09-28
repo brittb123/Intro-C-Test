@@ -10,15 +10,18 @@ namespace HelloWorld
         private int _huntersFocus;
         private int _huntersPiercing;
         private int _banditHunter;
+        private string _name;
 
         public Archer() : base()
         {
+            _name = "Archer";
             _banditHunter = 5;
             _arrowcount = 15;
             _huntersFocus = 5;
             _huntersPiercing = 5;
         }
 
+        //Overrides basic Attack with the Archers Special abilities
         public override float BaseAttack(Character enemy)
         {
             _damage += 10;

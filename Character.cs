@@ -14,11 +14,13 @@ namespace HelloWorld
         public float _damage;
         public item[] _inventory;
         
+        
 
       public  Character()
       {
+            
             _health = 100;
-            _name = "Chosen One";
+            _name = "Player";
             _defense = 10;
             _damage = 10;
             _inventory = new item[4];
@@ -33,7 +35,7 @@ namespace HelloWorld
 
       }
 
-
+        //Base attack for all players and classes
       public virtual float BaseAttack(Character enemy)
       {
             float damageTotal = TakingDamage(_damage);
@@ -41,7 +43,38 @@ namespace HelloWorld
             return damageTotal;
       }
 
+        //Prints Player stats depending on their Chosen Specialty
+     public void PrintStats(Character character)
+     {
+            if(character is Knight)
+            {
+                _name = "Knight";
+                Console.WriteLine("Chosen Role: " + _name);
+                Console.WriteLine("Health: " + _health);
+                Console.WriteLine("Armor: " + _defense);
+                
+            }
+            else if(character is Wizard)
+            {
+                int _mana = 100;
+                _name = "Wizard";
+                Console.WriteLine("Chosen Role: " + _name);
+                Console.WriteLine("Health: " + _health);
+                Console.WriteLine("Mana: " + _mana);
+            }
 
+            else if(character is Archer)
+            {
+                int _arrowcount = 15;
+                _name = "Archer";
+                Console.WriteLine("Chosen Role: " + _name);
+                Console.WriteLine("Health: " + _health);
+                Console.WriteLine("Arrows: " + _arrowcount);
+            }
+
+     }
+
+        // Takes all damage and subtracts from enemy health
       public virtual float TakingDamage(float _damageVal)
       {
             _damageVal -= _defense;
@@ -53,6 +86,8 @@ namespace HelloWorld
             }
             return _damageVal;
       }
+
+        // Adds certain items to the inventory of either player
         public void AddItemToInv(item item, int index)
         {
             _inventory[index] = item;
@@ -79,21 +114,25 @@ namespace HelloWorld
             }
             return true;
         }
+
+        // Grabs players inventory for modification
         public item[] GetInventory()
         {
             return _inventory;
         }
+
+        // Checks to make sure both players are alive in battle;
         public bool StillAlive()
         {
             return _health > 0;
         }
 
-        public virtual void PrintStats()
+        // Gets the name of the certain player!
+        public string GetName()
         {
-            Console.WriteLine("Name: " + _name);
-            Console.WriteLine("Health: " + _health);
-            Console.WriteLine("Damage: " + _damage);
-            Console.WriteLine("Armor: " + _defense);
+            return _name;
         }
+        
+        
    }
 }

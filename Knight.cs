@@ -6,6 +6,7 @@ namespace HelloWorld
 {
     class Knight : Character
     {
+        private string _name;
         private int _stamina;
         private int _armor;
         private int _KnightsFury;
@@ -19,9 +20,12 @@ namespace HelloWorld
             _armor = 5;
             _KnightsFury = 5;
             _KnightsHonor = 5;
+            _name = "Knight";
             
         }
-        //The players attack if they are a knight
+
+        
+        //The players attacks in a special way if they are a knight
         public override float BaseAttack(Character enemy)
         {
             _damage += _KnightsHonor;

@@ -26,10 +26,10 @@ namespace HelloWorld
         private item _arrows;
         private item _shield;
         private item _lightningScroll;
-        private string player1Victors;
-        private string player2Victors;
+        public string player1Role;
+        public string player2Role;
 
-        //Gives items names and damage vals
+        //Gives items names and damage values
         public void InitalizeItems()
         {
             _longsword.name = "Longsword";
@@ -45,7 +45,7 @@ namespace HelloWorld
             _lightningScroll.damage = 20;
         }
 
-        //Gets input for many decisions
+        //Gets input for many decisions in combat or loadout selections
         public void GetInput(string option1, string option2, string option3, string query)
         {
             Console.WriteLine(query);
@@ -54,7 +54,7 @@ namespace HelloWorld
             Console.WriteLine("3. " + option3);
         }
 
-        //Saves a certain amount of data
+        //Saves a certain amount of data for later loading and usage
         public void Save()
         {
             StreamWriter writer = new StreamWriter("SaveData.txt");
@@ -63,7 +63,7 @@ namespace HelloWorld
             writer.Close();
         }
 
-        //Loads a certain amount of datda
+        //Loads the recent stats the players have left off with
         public void Load()
         {
             StreamReader reader = new StreamReader("SaveData.txt");
@@ -72,7 +72,7 @@ namespace HelloWorld
             reader.Close();
         }
 
-        //Prints the players inventory when switching
+        //Prints the players inventory when switching weapons
         public void PrintInventory(item[] inventory)
         {
             for (int i = 0; i < 3; i++)
@@ -85,7 +85,7 @@ namespace HelloWorld
             }
         }
 
-        //Select loadouts for each player
+        //Select loadouts for each player to begin battles
         public void SelectLoadouts(Character character)
         {
             GetInput("Knight", "Archer", "Wizard", "Player 1 Choose a loadout:");
@@ -98,12 +98,14 @@ namespace HelloWorld
             {
 
                 player1 = new Knight();
+               
                 player1.AddItemToInv(_longsword, 0);
                 player1.AddItemToInv(_shield, 1);
             }
             else if (input == '2')
             {
-                player1 = new Knight();
+                player1 = new Archer();
+                
                 player1.AddItemToInv(_fireScrolls, 0);
                 player1.AddItemToInv(_lightningScroll, 1);
             }
@@ -111,6 +113,7 @@ namespace HelloWorld
             else if (input == '3')
             {
                 player1 = new Wizard();
+               
                 player1.AddItemToInv(_fireScrolls, 0);
                 player1.AddItemToInv(_lightningScroll, 1);
             }
@@ -125,24 +128,28 @@ namespace HelloWorld
             {
 
                 player2 = new Knight();
+              
                 player2.AddItemToInv(_longsword, 0);
                 player2.AddItemToInv(_shield, 1);
             }
             else if (input == '2')
             {
-                player2 = new Knight();
+                player2 = new Archer();
+               
                 player2.AddItemToInv(_fireScrolls, 0);
-                player2.AddItemToInv(_lightningScroll, 1);          }
+                player2.AddItemToInv(_lightningScroll, 1);        
+            }
 
             else if (input == '3')
             {
                 player2 = new Wizard();
+               
                 player2.AddItemToInv(_fireScrolls, 0);
                 player2.AddItemToInv(_lightningScroll, 1);
             }
 
         }
-       
+
         //Get the name of the players
         public void CreateCharacter()
         {
@@ -152,17 +159,44 @@ namespace HelloWorld
             
         }
 
+        //Starts Battle between the players till one loses!
         public void StartBattle()
         {
+            Console.Clear();
             while(player1.StillAlive() && player2.StillAlive())
             {
 
-                Console.Clear();
-                player1.PrintStats();
-                player2.PrintStats();
-                Console.WriteLine("Player One's Turn: ");
-                GetInput("Attack", "Change Weapon", "Block", "What is your play");
+                
+                Console.WriteLine("Player One: ");
+                player1.PrintStats(player1);
+                Console.WriteLine("\nPlayer Two: ");
+                player2.PrintStats(player2);
                 char input = ' ';
+              
+                Console.WriteLine("\nPlayer One's Turn: ");
+                GetInput("Attack", "Change Weapon", "Block", "What is your play");
+                input = Console.ReadKey().KeyChar;
+                if (input == '1' && player1 is Knight)
+                {
+                    Console.WriteLine("Player One Charges Player two and deals " + player1._damage);
+
+                    
+
+                }
+
+                else if(input == '1' && player1 is Archer)
+                {
+
+
+                }
+
+                else if (input == '1' && player1 is Wizard)
+                {
+
+
+
+                }
+                
 
 
             }
@@ -185,19 +219,17 @@ namespace HelloWorld
         //Performed once when the game begins
         public void Start()
         {
-            Save();
+          
             
             InitalizeItems();
-            Load();
+            
         }
 
         //Repeated until the game ends
         public void Update()
         {
             SelectLoadouts(player1);
-            PrintInventory(player1._inventory);
-            PrintInventory(player2._inventory);
-            Console.WriteLine(player1Victors);
+            StartBattle();
         }
 
         //Performed once when the game ends
