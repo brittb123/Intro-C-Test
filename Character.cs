@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.IO;
 
 namespace HelloWorld
 {
@@ -57,6 +58,27 @@ namespace HelloWorld
             _inventory[index] = item;
         }
 
+        public virtual void Save(StreamWriter writer)
+        {
+            writer.WriteLine(_health);
+            writer.WriteLine(_damage);
+            writer.WriteLine(_name);
+        }
+       
+        public virtual bool Load(StreamReader reader)
+        {
+            string name = reader.ReadLine();
+            if (float.TryParse(reader.ReadLine(), out _damage) == false)
+            {
+                return false;
+            }
+
+            if (float.TryParse(reader.ReadLine(), out _health) == false)
+            {
+                return false;
+            }
+            return true;
+        }
         public item[] GetInventory()
         {
             return _inventory;

@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.IO;
 
 namespace HelloWorld
 {
 
     public struct item
     {
-         public string name;
+        public string name;
         public int damage;
     }
     class Game
@@ -20,12 +21,15 @@ namespace HelloWorld
         public bool _gameOver = false;
         private Wizard wizard;
         private item _longsword;
-        private item _Scrolls;
+        private item _fireScrolls;
         private item _Bow;
         private item _arrows;
         private item _shield;
+        private item _lightningScroll;
+        private string player1Victors;
+        private string player2Victors;
 
-
+        //Gives items names and damage vals
         public void InitalizeItems()
         {
             _longsword.name = "Longsword";
@@ -35,8 +39,13 @@ namespace HelloWorld
             _arrows.name = "Arrows";
             _arrows.damage = 5;
             _shield.name = "shield";
+            _fireScrolls.name = "Fireball Scrolls";
+            _fireScrolls.damage = 10;
+            _lightningScroll.name = "Lightning Scrolls";
+            _lightningScroll.damage = 20;
         }
 
+        //Gets input for many decisions
         public void GetInput(string option1, string option2, string option3, string query)
         {
             Console.WriteLine(query);
@@ -45,32 +54,93 @@ namespace HelloWorld
             Console.WriteLine("3. " + option3);
         }
 
+        //Saves a certain amount of data
+        public void Save()
+        {
+            StreamWriter writer = new StreamWriter("SaveData.txt");
+            player1.Save(writer);
+            player2.Save(writer);
+            writer.Close();
+        }
+
+        //Loads a certain amount of datda
+        public void Load()
+        {
+            StreamReader reader = new StreamReader("SaveData.txt");
+            player1.Load(reader);
+            player2.Load(reader);
+            reader.Close();
+        }
+
+        //Prints the players inventory when switching
         public void PrintInventory(item[] inventory)
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 3; i++)
             {
-                Console.WriteLine((i + 1) + ". " + inventory[i].name + inventory[i].damage + wizard.GetInventory());
+                Console.WriteLine((i + 1) + ". " + inventory[i].name);
+                Console.WriteLine("Damage: ");
+                Console.WriteLine(inventory[i].damage);
+                Console.WriteLine();
+               
             }
         }
 
+        //Select loadouts for each player
         public void SelectLoadouts(Character character)
         {
-            GetInput("Knight", "Archer", "Wizard", "Choose a loadout:");
+            GetInput("Knight", "Archer", "Wizard", "Player 1 Choose a loadout:");
             Console.WriteLine("Knights have a longsword, a shield, and more armor than normal!");
             Console.WriteLine("Archers have a bow, arrows, and a dagger for close quarters!");
-            Console.WriteLine("Wizards have supreme scolls of fireballs and only class with mana!");
+            Console.WriteLine("Wizards have supreme scolls of fireballs and lightning and only class with mana!");
+            
             char input = Console.ReadKey().KeyChar;
             if (input == '1')
             {
 
-                character = new Knight();
-                character.AddItemToInv(_longsword, 0);
-                character.AddItemToInv(_shield, 1);
+                player1 = new Knight();
+                player1.AddItemToInv(_longsword, 0);
+                player1.AddItemToInv(_shield, 1);
+            }
+            else if (input == '2')
+            {
+                
             }
 
+            else if (input == '3')
+            {
+                player1 = new Wizard();
+                player1.AddItemToInv(_fireScrolls, 0);
+                player1.AddItemToInv(_lightningScroll, 1);
+            }
+
+            GetInput("Knight", "Archer", "Wizard", "Player 2 Choose a loadout: ");
+            Console.WriteLine("Knights have a longsword, a shield, and more armor than normal!");
+            Console.WriteLine("Archers have a bow, arrows, and a dagger for close quarters!");
+            Console.WriteLine("Wizards have supreme scolls of fireballs and lightning and only class with mana!");
+
+             input = Console.ReadKey().KeyChar;
+            if (input == '1')
+            {
+
+                player2 = new Knight();
+                player2.AddItemToInv(_longsword, 0);
+                player2.AddItemToInv(_shield, 1);
+            }
+            else if (input == '2')
+            {
+
+            }
+
+            else if (input == '3')
+            {
+                player2 = new Wizard();
+                player2.AddItemToInv(_fireScrolls, 0);
+                player2.AddItemToInv(_lightningScroll, 1);
+            }
 
         }
        
+        //Get the name of the players
         public void CreateCharacter()
         {
             string name = " ";
@@ -84,7 +154,7 @@ namespace HelloWorld
         public void Run()
         {
             Start();
-            while (_gameOver = false)
+            while (_gameOver = true)
             {
                 Update();
             }
@@ -95,18 +165,19 @@ namespace HelloWorld
         //Performed once when the game begins
         public void Start()
         {
+            Save();
+            
             InitalizeItems();
-            SelectLoadouts(player1);
-            PrintInventory(player1.GetInventory());
-           
-
+            Load();
         }
 
         //Repeated until the game ends
         public void Update()
         {
             SelectLoadouts(player1);
-            PrintInventory(player1.GetInventory());
+            PrintInventory(player1._inventory);
+            PrintInventory(player2._inventory);
+            Console.WriteLine(player1Victors);
         }
 
         //Performed once when the game ends
