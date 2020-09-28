@@ -53,16 +53,19 @@ namespace HelloWorld
             }
         }
 
-        public void SelectLoadouts(Character Knight)
+        public void SelectLoadouts(Character character)
         {
             GetInput("Knight", "Archer", "Wizard", "Choose a loadout:");
+            Console.WriteLine("Knights have a longsword, a shield, and more armor than normal!");
+            Console.WriteLine("Archers have a bow, arrows, and a dagger for close quarters!");
+            Console.WriteLine("Wizards have supreme scolls of fireballs and only class with mana!");
             char input = Console.ReadKey().KeyChar;
             if (input == '1')
             {
 
-                player1 = new Knight();
-                Knight.AddItemToInv(_longsword, 0);
-                Knight.AddItemToInv(_shield, 1);
+                character = new Knight();
+                character.AddItemToInv(_longsword, 0);
+                character.AddItemToInv(_shield, 1);
             }
 
 
@@ -73,7 +76,7 @@ namespace HelloWorld
             string name = " ";
             Console.WriteLine("What is your name player?");
             name = Console.ReadLine();
-
+            
         }
 
 
@@ -92,9 +95,10 @@ namespace HelloWorld
         //Performed once when the game begins
         public void Start()
         {
-            SelectLoadouts(player1);
-
             InitalizeItems();
+            SelectLoadouts(player1);
+            PrintInventory(player1.GetInventory());
+           
 
         }
 
