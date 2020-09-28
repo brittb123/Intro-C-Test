@@ -103,7 +103,9 @@ namespace HelloWorld
             }
             else if (input == '2')
             {
-                
+                player1 = new Knight();
+                player1.AddItemToInv(_fireScrolls, 0);
+                player1.AddItemToInv(_lightningScroll, 1);
             }
 
             else if (input == '3')
@@ -128,8 +130,9 @@ namespace HelloWorld
             }
             else if (input == '2')
             {
-
-            }
+                player2 = new Knight();
+                player2.AddItemToInv(_fireScrolls, 0);
+                player2.AddItemToInv(_lightningScroll, 1);          }
 
             else if (input == '3')
             {
@@ -149,6 +152,23 @@ namespace HelloWorld
             
         }
 
+        public void StartBattle()
+        {
+            while(player1.StillAlive() && player2.StillAlive())
+            {
+
+                Console.Clear();
+                player1.PrintStats();
+                player2.PrintStats();
+                Console.WriteLine("Player One's Turn: ");
+                GetInput("Attack", "Change Weapon", "Block", "What is your play");
+                char input = ' ';
+
+
+            }
+            
+
+        }
 
         //Run the game
         public void Run()

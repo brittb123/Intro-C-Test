@@ -83,5 +83,17 @@ namespace HelloWorld
         {
             return _inventory;
         }
+        public bool StillAlive()
+        {
+            return _health > 0;
+        }
+
+        public virtual void PrintStats()
+        {
+            Console.WriteLine("Name: " + _name);
+            Console.WriteLine("Health: " + _health);
+            Console.WriteLine("Damage: " + _damage);
+            Console.WriteLine("Armor: " + _defense);
+        }
    }
 }
