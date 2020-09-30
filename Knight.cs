@@ -33,8 +33,8 @@ namespace HelloWorld
         {
 
             float totaldamage = _damage + _KnightsFury + currentWeapon;
-            Console.WriteLine("The knights eyes burn with the fury of a protector amd does more damage!");
-            Console.WriteLine("The knight swings at player 2 and gets a swipe dealing" + totaldamage);
+            Console.WriteLine("\nThe knights eyes burn with the fury of a protector amd does more damage!");
+            Console.WriteLine("The knight swings at player 2 and gets a swipe dealing " + totaldamage);
             return enemy.TakingDamage(totaldamage);
             
         }
@@ -42,7 +42,7 @@ namespace HelloWorld
         //Get the amount of damage and subtracts it from health 
         public override float TakingDamage(float _damageVal)
         {
-            Console.WriteLine("The knights armor shines eith honor!");
+            Console.WriteLine("The knights armor shines with honor!");
             _damageVal -= _KnightsHonor;
             return base.TakingDamage(_damageVal);
         }

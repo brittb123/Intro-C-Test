@@ -18,7 +18,7 @@ namespace HelloWorld
         private Character player2;
         
 
-        public bool _gameOver = false;
+        
         private Wizard wizard;
         private item _longsword;
         private item _fireScrolls;
@@ -29,6 +29,7 @@ namespace HelloWorld
         public string player1Role;
         public string player2Role;
         public int curretWeaponBoost;
+        public bool _gameOver;
 
         //Gives items names and damage values
         public void InitalizeItems()
@@ -44,6 +45,7 @@ namespace HelloWorld
             _fireScrolls.damage = 10;
             _lightningScroll.name = "Lightning Scrolls";
             _lightningScroll.damage = 20;
+            _gameOver = false;
         }
 
         //Gets input for many decisions in combat or loadout selections
@@ -76,7 +78,7 @@ namespace HelloWorld
         //Prints the players inventory when switching weapons
         public void PrintInventory(item[] inventory)
         {
-            Console.WriteLine("Here are your choices");
+            Console.WriteLine("\nHere are your choices");
             for (int i = 0; i < 3; i++)
             {
                
@@ -124,7 +126,7 @@ namespace HelloWorld
                 player1.AddItemToInv(_lightningScroll, 1);
             }
 
-            GetInput("Knight", "Archer", "Wizard", "Player 2 Choose a loadout: ");
+            GetInput("Knight", "Archer", "Wizard", "\nPlayer 2 Choose a loadout: ");
             Console.WriteLine("Knights have a longsword, a shield, and more armor than normal!");
             Console.WriteLine("Archers have a bow, arrows, and a dagger for close quarters!");
             Console.WriteLine("Wizards have supreme scolls of fireballs and lightning and only class with mana!");
@@ -132,7 +134,7 @@ namespace HelloWorld
              input = Console.ReadKey().KeyChar;
             if (input == '1')
             {
-                //
+                //Creates the player 2 if knight selected also sets their current weapon to their main choice!
                 player2 = new Knight();
                 curretWeaponBoost = _longsword.damage;
                 player2.AddItemToInv(_longsword, 0);
@@ -140,6 +142,7 @@ namespace HelloWorld
             }
             else if (input == '2')
             {
+                //Creates player 2 as Archer if chosen!
                 player2 = new Archer();
                 curretWeaponBoost = _Bow.damage;
                 player2.AddItemToInv(_fireScrolls, 0);
@@ -148,6 +151,7 @@ namespace HelloWorld
 
             else if (input == '3')
             {
+                //Creates player 2 to be a Wizard if chosen!
                 player2 = new Wizard();
                 curretWeaponBoost = _fireScrolls.damage;
                 player2.AddItemToInv(_fireScrolls, 0);
@@ -156,14 +160,8 @@ namespace HelloWorld
 
         }
 
-        //Get the name of the players
-        public void CreateCharacter()
-        {
-            string name = " ";
-            Console.WriteLine("What is your name player?");
-            name = Console.ReadLine();
-            
-        }
+        
+        
 
         //Starts Battle between the players till one loses!
         public void StartBattle()
@@ -172,7 +170,7 @@ namespace HelloWorld
             while(player1.StillAlive() && player2.StillAlive())
             {
 
-                
+                //Prints stats of player each round
                 Console.WriteLine("Player One: ");
                 player1.PrintStats(player1);
                 Console.WriteLine("\nPlayer Two: ");
@@ -220,6 +218,11 @@ namespace HelloWorld
                                 break;
                             }
                     }
+
+                    if(input == '3')
+                    {
+                        Console.WriteLine("Player 1 prepares to block");
+                    }
                 }
                 //Player Twos turn starts and asks for a decision!
                 input = ' ';
@@ -228,6 +231,7 @@ namespace HelloWorld
                 GetInput("Attack", "Change Weapon", "Block", "What is your play");
                 
                 input = Console.ReadKey().KeyChar;
+                //Overrides the basic attacks depending on player 2s loadout!
                 if (input == '1' && player2 is Knight)
                 {
                     player2.BaseAttack(player1);
@@ -243,6 +247,7 @@ namespace HelloWorld
                     player2.BaseAttack(player1);
                 }
 
+                //Player 2 inventory and switch weapon functions!
                 if(input == '2')
                 {
                      item[] inventory = player1.GetInventory();
@@ -252,20 +257,27 @@ namespace HelloWorld
                      {
                        case '1':
                          {
+                              //Swaps current weapon to selected item
                               player1.EquipItem(0);
                               break;
                          }
                        case '2':
                           {
+                                //Swaps current weapon to selected item
                               player1.EquipItem(1);
                               break;
                           }
                      }
                 }
-                Console.WriteLine("Press any key to continue");
+                if(input == '3')
+                {
+                    Console.WriteLine("Player 2 prepares to block!");
+                }
+                Console.WriteLine("\nPress any key to continue");
                 Console.ReadKey();
                 Console.Clear();
             }
+            _gameOver = true;
         }
 
         //Run the game
@@ -299,6 +311,11 @@ namespace HelloWorld
         //Performed once when the game ends
         public void End()
         {
+
+            if (player1.StillAlive()) 
+            {
+                Console.WriteLine("Player one wins");
+            }
             
         }
     }

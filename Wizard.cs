@@ -43,14 +43,14 @@ namespace HelloWorld
         public void ScrollChoice()
         {
             GetMana();
-            Console.WriteLine("Which scroll would you like to use?");
+            Console.WriteLine("\nWhich scroll would you like to use?");
             Console.WriteLine("Press 1 for Fireball scroll to incenrate the enemy");
             Console.WriteLine("Press 2 for Lightning scroll to shock them in both ways!");
             char input = ' ';
             input = Console.ReadKey().KeyChar;
             if(input == '1' && _mana > 4)
             {
-                GetMana();
+              
                 Console.WriteLine("\nThe wizard reads a fiery poem from a scroll and a fireball hits the enemy for " + _damage);
                 
                 _mana -= 4;
