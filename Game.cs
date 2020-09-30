@@ -76,8 +76,10 @@ namespace HelloWorld
         //Prints the players inventory when switching weapons
         public void PrintInventory(item[] inventory)
         {
+            Console.WriteLine("Here are your choices");
             for (int i = 0; i < 3; i++)
             {
+               
                 Console.WriteLine((i + 1) + ". " + inventory[i].name);
                 Console.WriteLine("Damage: ");
                 Console.WriteLine(inventory[i].damage);
@@ -132,14 +134,14 @@ namespace HelloWorld
             {
                 //
                 player2 = new Knight();
-              
+                curretWeaponBoost = _longsword.damage;
                 player2.AddItemToInv(_longsword, 0);
                 player2.AddItemToInv(_shield, 1);
             }
             else if (input == '2')
             {
                 player2 = new Archer();
-               
+                curretWeaponBoost = _Bow.damage;
                 player2.AddItemToInv(_fireScrolls, 0);
                 player2.AddItemToInv(_lightningScroll, 1);        
             }
@@ -147,7 +149,7 @@ namespace HelloWorld
             else if (input == '3')
             {
                 player2 = new Wizard();
-               
+                curretWeaponBoost = _fireScrolls.damage;
                 player2.AddItemToInv(_fireScrolls, 0);
                 player2.AddItemToInv(_lightningScroll, 1);
             }
@@ -184,25 +186,86 @@ namespace HelloWorld
                 if (input == '1' && player1 is Knight)
                 {
                     player1.BaseAttack(player2);
-                    Console.WriteLine("Player One Charges Player two and deals " + player1._damage);
+                   
                 }
 
                 // If the player is a Archer override the 
                 else if(input == '1' && player1 is Archer)
                 {
                     player1.BaseAttack(player2);
+                  
                 }
 
+                //The base attack is overrided for wizards
                 else if (input == '1' && player1 is Wizard)
                 {
                     player1.BaseAttack(player2);
                 }
+                //Opens the inventory and able to switch the weapon using!
+                if(input == '2')
+                {
+                    item[] inventory = player1.GetInventory();
+                    PrintInventory(inventory);
+                    char input2 = Console.ReadKey().KeyChar;
+                    switch (input)
+                    {
+                        case '1':
+                            {
+                                player1.EquipItem(0);
+                                break;
+                            }
+                        case '2':
+                            {
+                                player1.EquipItem(1);
+                                break;
+                            }
+                    }
+                }
+                //Player Twos turn starts and asks for a decision!
+                input = ' ';
+                Console.WriteLine("\nPlayer Two, Now is the time to attack!");
                 
+                GetInput("Attack", "Change Weapon", "Block", "What is your play");
+                
+                input = Console.ReadKey().KeyChar;
+                if (input == '1' && player2 is Knight)
+                {
+                    player2.BaseAttack(player1);
+                }
 
+                else if (input == '1' && player2 is Archer) 
+                {
+                    player2.BaseAttack(player1);
+                }
 
+                if(input == '1' && player2 is Wizard)
+                {
+                    player2.BaseAttack(player1);
+                }
+
+                if(input == '2')
+                {
+                     item[] inventory = player1.GetInventory();
+                     PrintInventory(inventory);
+                     char input2 = Console.ReadKey().KeyChar;
+                     switch (input)
+                     {
+                       case '1':
+                         {
+                              player1.EquipItem(0);
+                              break;
+                         }
+                       case '2':
+                          {
+                              player1.EquipItem(1);
+                              break;
+                          }
+                     }
+                }
+                Console.WriteLine("Press any key to continue");
+                Console.ReadKey();
+                Console.Clear();
             }
-            
-
         }
 
         //Run the game

@@ -15,6 +15,8 @@ namespace HelloWorld
         public item[] _inventory;
         private item currentWeapon;
         private item _fists;
+        private int _mana;
+       
         
         
 
@@ -42,9 +44,9 @@ namespace HelloWorld
         //Base attack for all players and classes
       public virtual float BaseAttack(Character enemy)
       {
-            
-            Console.WriteLine("The other player has taken" + _damage + "damage");
-            return enemy.TakingDamage(_damage);
+            float totalDamage = _damage + currentWeapon.damage; 
+            Console.WriteLine("\nThe other player has taken " + totalDamage + " damage");
+            return enemy.TakingDamage(totalDamage);
       }
 
         //Prints Player stats depending on their Chosen Specialty
@@ -60,11 +62,12 @@ namespace HelloWorld
             }
             else if(character is Wizard)
             {
-                int _mana = 100;
+                
                 _name = "Wizard";
                 Console.WriteLine("Chosen Role: " + _name);
                 Console.WriteLine("Health: " + _health);
                 Console.WriteLine("Mana: " + _mana);
+                
             }
 
             else if(character is Archer)
@@ -81,6 +84,7 @@ namespace HelloWorld
         // Takes all damage and subtracts from enemy health
       public virtual float TakingDamage(float _damageVal)
       {
+            _damageVal += currentWeapon.damage;
             _damageVal -= _defense;
             _health -= _damageVal;
             if (_health < 0)

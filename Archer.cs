@@ -27,15 +27,20 @@ namespace HelloWorld
         //Overrides basic Attack with the Archers Special abilities
         public override float BaseAttack(Character enemy)
         {
-            _damage += 10;
+            
             if (_health < 50)
             {
                 Console.WriteLine("You are in pain and lose focus of your target");
-                _damage = 5;
+                _damage = 10;
             }
-            if (_health > 95)
+            if (_health >= 85)
             {
                 Console.WriteLine("Your focus stays very sharp dealing more damage!");
+                _damage = 40;
+            }
+            else
+            {
+                Console.WriteLine("The archer knocks an arrow and flys one to the enemys chest");
                 _damage = 15;
             }
             return base.BaseAttack(enemy);
