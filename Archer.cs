@@ -31,11 +31,12 @@ namespace HelloWorld
             if (_health < 50)
             {
                 Console.WriteLine("You are in pain and lose focus of your target");
-                _damage -= 10;
+                _damage = 5;
             }
             if (_health > 95)
             {
-                _damage += 5;
+                Console.WriteLine("Your focus stays very sharp dealing more damage!");
+                _damage = 15;
             }
             return base.BaseAttack(enemy);
         }

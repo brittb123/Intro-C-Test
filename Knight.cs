@@ -28,15 +28,17 @@ namespace HelloWorld
         //The players attacks in a special way if they are a knight
         public override float BaseAttack(Character enemy)
         {
-            _damage += _KnightsHonor;
+            _damage = 15;
+            
             Console.WriteLine("The knights eyes burn with the fury of a protector amd does more damage!");
             return base.BaseAttack(enemy);
+            
         }
 
         //Get the amount of damage and subtracts it from health 
         public override float TakingDamage(float _damageVal)
         {
-            Console.WriteLine("The knights armor shines as it absorbs some damage making the attack weaker");
+            Console.WriteLine("The knights armor shines eith honor!");
             _damageVal -= _KnightsHonor;
             return base.TakingDamage(_damageVal);
         }

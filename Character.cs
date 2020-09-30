@@ -13,6 +13,8 @@ namespace HelloWorld
         private float _defense;
         public float _damage;
         public item[] _inventory;
+        private item currentWeapon;
+        private item _fists;
         
         
 
@@ -21,9 +23,11 @@ namespace HelloWorld
             
             _health = 100;
             _name = "Player";
-            _defense = 10;
+            _defense = 5;
             _damage = 10;
             _inventory = new item[4];
+            _fists.name = "Fists";
+            _fists.damage = 1;
       }
 
       public  Character(float _healthVal, string _nameVal, float _defenseVal, float _damageVal)
@@ -38,9 +42,9 @@ namespace HelloWorld
         //Base attack for all players and classes
       public virtual float BaseAttack(Character enemy)
       {
-            float damageTotal = TakingDamage(_damage);
-            Console.WriteLine("The other player has taken" + damageTotal + "damage");
-            return damageTotal;
+            
+            Console.WriteLine("The other player has taken" + _damage + "damage");
+            return enemy.TakingDamage(_damage);
       }
 
         //Prints Player stats depending on their Chosen Specialty
@@ -86,6 +90,23 @@ namespace HelloWorld
             }
             return _damageVal;
       }
+        public bool Contains(int itemIndex)
+        {
+            if(itemIndex > 0 && itemIndex < _inventory.Length)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public void EquipItem(int itemIndex)
+        {
+            if (Contains(itemIndex))
+            {
+                currentWeapon = _inventory[itemIndex];
+            }
+        }
 
         // Adds certain items to the inventory of either player
         public void AddItemToInv(item item, int index)

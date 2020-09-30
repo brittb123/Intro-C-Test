@@ -28,6 +28,7 @@ namespace HelloWorld
         private item _lightningScroll;
         public string player1Role;
         public string player2Role;
+        public int curretWeaponBoost;
 
         //Gives items names and damage values
         public void InitalizeItems()
@@ -101,6 +102,7 @@ namespace HelloWorld
                
                 player1.AddItemToInv(_longsword, 0);
                 player1.AddItemToInv(_shield, 1);
+                curretWeaponBoost = _longsword.damage;
             }
             else if (input == '2')
             {
@@ -181,26 +183,19 @@ namespace HelloWorld
                 //If player attacks as a Knight Attack with knight abilites
                 if (input == '1' && player1 is Knight)
                 {
+                    player1.BaseAttack(player2);
                     Console.WriteLine("Player One Charges Player two and deals " + player1._damage);
-
-                    
-
                 }
 
                 // If the player is a Archer override the 
                 else if(input == '1' && player1 is Archer)
                 {
-
-
-
-
+                    player1.BaseAttack(player2);
                 }
 
                 else if (input == '1' && player1 is Wizard)
                 {
-
-
-
+                    player1.BaseAttack(player2);
                 }
                 
 

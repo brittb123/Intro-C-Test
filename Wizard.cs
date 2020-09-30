@@ -28,6 +28,7 @@ namespace HelloWorld
         public override float BaseAttack(Character enemy)
         {
             ScrollChoice();
+           player2
             return base.BaseAttack(enemy);
         }
 
@@ -43,6 +44,7 @@ namespace HelloWorld
             {
                 Console.WriteLine("The wizard reads a fiery poem from a scroll and a fireball hits the enemy for " + _damage);
                 _mana -= 4; 
+                
             }
             else
             {
@@ -52,6 +54,7 @@ namespace HelloWorld
             if(input == '2' && _mana > 8)
             {
                 Console.WriteLine("The Wizard chants with a thunderous voice a a lightning bolt zaps the enemy dealing " + _damage);
+                _mana -= 8;
             }
             else
             {
