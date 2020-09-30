@@ -16,6 +16,8 @@ namespace HelloWorld
         private item currentWeapon;
         private item _fists;
         private int _mana;
+        public int player1Wins;
+        public int player2Wins;
        
         
         
@@ -94,6 +96,7 @@ namespace HelloWorld
             }
             return _damageVal;
       }
+        //Checks to see if inventory as so said item!
         public bool Contains(int itemIndex)
         {
             if(itemIndex > 0 && itemIndex < _inventory.Length)
@@ -104,6 +107,7 @@ namespace HelloWorld
             return false;
         }
 
+        //Equip an item to current loadout
         public void EquipItem(int itemIndex)
         {
             if (Contains(itemIndex))
@@ -118,22 +122,23 @@ namespace HelloWorld
             _inventory[index] = item;
         }
 
+        //Saves both players stats to use after game reloads
         public virtual void Save(StreamWriter writer)
         {
-            writer.WriteLine(_health);
-            writer.WriteLine(_damage);
-            writer.WriteLine(_name);
+            writer.WriteLine("Times player 1 won:" + player1Wins);
+            writer.WriteLine("Times player 2 won:" + player2Wins);
+
         }
-       
+       //Loads characters from a previous match
         public virtual bool Load(StreamReader reader)
         {
             string name = reader.ReadLine();
-            if (float.TryParse(reader.ReadLine(), out _damage) == false)
+            if (int.TryParse(reader.ReadLine(), out player1Wins) == false)
             {
                 return false;
             }
 
-            if (float.TryParse(reader.ReadLine(), out _health) == false)
+            if (int.TryParse(reader.ReadLine(), out player2Wins) == false)
             {
                 return false;
             }

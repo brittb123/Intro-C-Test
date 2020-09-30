@@ -48,26 +48,28 @@ namespace HelloWorld
         public override float BaseAttack(Character enemy)
         {
             float totalDamage = _damage;
+            ArrowTips("1. Explosive", "2. Shocking", "3. Freezing", "Which arrow tip would you like to use?");
             char input = Console.ReadKey().KeyChar;
-            ArrowTips("Explosive", "Shocking", "Freezing", "Which arrow tip would you like to use?");
-            if(input == '1')
+            if (input == '1')
             {
                 totalDamage = _damage + _explosiveArrows.damage + _huntersFocus;
-                Console.WriteLine("The archer grabs an explosive tipped arrow and lets it fly exploding the enemy for " + totalDamage);
+                Console.WriteLine("\nThe archer grabs an explosive tipped arrow and lets it fly exploding the enemy for " + totalDamage);
                 return enemy.TakingDamage(totalDamage);
             }
             else if (input == '2')
             {
                 totalDamage = _damage + _shockArrows.damage + _huntersFocus;
-                Console.WriteLine("The archer knocks an shock arrow and flips while letting the arrow go and dealt " + totalDamage);
+                Console.WriteLine("\nThe archer knocks an shock arrow and flips while letting the arrow go and dealt " + totalDamage);
                 return enemy.TakingDamage(totalDamage);
             }
             else if (input == '3')
             {
                 totalDamage = _damage + _iceArrows.damage + _huntersFocus;
-                Console.WriteLine("The archer shoot a ice tipped arrow dealing " + totalDamage + " of freezing");
+                Console.WriteLine("\nThe archer shoot a ice tipped arrow dealing " + totalDamage + " of freezing");
                 return enemy.TakingDamage(totalDamage);
             }
+
+            else
             return enemy.TakingDamage(totalDamage);
         }
     }

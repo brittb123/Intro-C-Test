@@ -57,6 +57,14 @@ namespace HelloWorld
             Console.WriteLine("3. " + option3);
         }
 
+        public void GetInput(string option1, string option2, string query)
+        {
+            Console.WriteLine(query);
+            Console.WriteLine("1. " + option1);
+            Console.WriteLine("2. " + option2);
+           
+        }
+
         //Saves a certain amount of data for later loading and usage
         public void Save()
         {
@@ -224,26 +232,37 @@ namespace HelloWorld
                         Console.WriteLine("Player 1 prepares to block");
                     }
                 }
+                Console.WriteLine("Press any key to continue");
+                Console.ReadKey();
+                //Clears screen for player two's turn
+                Console.Clear();
+                Console.WriteLine("\nPlayer One:");
+                player1.PrintStats(player1);
+                Console.WriteLine("\nPlayer 2");
+                player2.PrintStats(player2);
                 //Player Twos turn starts and asks for a decision!
                 input = ' ';
                 Console.WriteLine("\nPlayer Two, Now is the time to attack!");
                 
-                GetInput("Attack", "Change Weapon", "Block", "What is your play");
+                GetInput("Attack", "Change Weapon", "Save", "What is your play");
                 
                 input = Console.ReadKey().KeyChar;
                 //Overrides the basic attacks depending on player 2s loadout!
                 if (input == '1' && player2 is Knight)
                 {
+                    //Swaps current weapon to selected item
                     player2.BaseAttack(player1);
                 }
 
                 else if (input == '1' && player2 is Archer) 
                 {
+                    //Swaps current weapon to selected item
                     player2.BaseAttack(player1);
                 }
 
                 if(input == '1' && player2 is Wizard)
                 {
+                    //Swaps current weapon to selected item
                     player2.BaseAttack(player1);
                 }
 
@@ -269,9 +288,10 @@ namespace HelloWorld
                           }
                      }
                 }
+                //Saves the battle to reload later if application is exited!
                 if(input == '3')
                 {
-                    Console.WriteLine("Player 2 prepares to block!");
+                    Save();
                 }
                 Console.WriteLine("\nPress any key to continue");
                 Console.ReadKey();
@@ -284,7 +304,7 @@ namespace HelloWorld
         public void Run()
         {
             Start();
-            while (_gameOver = true)
+            while (_gameOver == false)
             {
                 Update();
             }
@@ -295,8 +315,6 @@ namespace HelloWorld
         //Performed once when the game begins
         public void Start()
         {
-          
-            
             InitalizeItems();
             
         }
@@ -304,8 +322,10 @@ namespace HelloWorld
         //Repeated until the game ends
         public void Update()
         {
-            SelectLoadouts(player1);
-            StartBattle();
+            
+                SelectLoadouts(player1);
+                StartBattle();
+           
         }
 
         //Performed once when the game ends
@@ -314,8 +334,15 @@ namespace HelloWorld
 
             if (player1.StillAlive()) 
             {
-                Console.WriteLine("Player one wins");
+                Console.WriteLine("Player one wins the battle and glory!");
+                player1.player1Wins++;
             }
+            if (player2.StillAlive())
+            {
+                Console.WriteLine("Player two shows the might they had by being victorious");
+                player2.player2Wins++;
+            }
+            Save();
             
         }
     }
