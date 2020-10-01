@@ -32,6 +32,7 @@ namespace HelloWorld
             _inventory = new item[4];
             _fists.name = "Fists";
             _fists.damage = 1;
+            _mana = 100;
       }
 
       public  Character(float _healthVal, string _nameVal, float _defenseVal, float _damageVal)

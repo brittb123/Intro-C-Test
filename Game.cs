@@ -230,6 +230,7 @@ namespace HelloWorld
                     if(input == '3')
                     {
                         Console.WriteLine("Player 1 prepares to block");
+                        player2._damage -= 5;
                     }
                 }
                 Console.WriteLine("Press any key to continue");
@@ -244,7 +245,7 @@ namespace HelloWorld
                 input = ' ';
                 Console.WriteLine("\nPlayer Two, Now is the time to attack!");
                 
-                GetInput("Attack", "Change Weapon", "Save", "What is your play");
+                GetInput("Attack", "Change Weapon", "Block", "What is your play");
                 
                 input = Console.ReadKey().KeyChar;
                 //Overrides the basic attacks depending on player 2s loadout!
@@ -264,6 +265,7 @@ namespace HelloWorld
                 {
                     //Swaps current weapon to selected item
                     player2.BaseAttack(player1);
+                    player1._damage -= 3;
                 }
 
                 //Player 2 inventory and switch weapon functions!
@@ -291,7 +293,8 @@ namespace HelloWorld
                 //Saves the battle to reload later if application is exited!
                 if(input == '3')
                 {
-                    Save();
+                    Console.WriteLine("Player 2 prepares for an attack!");
+                    player1._damage -= 3;
                 }
                 Console.WriteLine("\nPress any key to continue");
                 Console.ReadKey();
