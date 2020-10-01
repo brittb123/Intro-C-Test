@@ -13,7 +13,7 @@ namespace HelloWorld
         //Knights Attack Boost
         private int _KnightsHonor;
         //Knights Defense boost
-        private float currentWeapon;
+        private item _currentWeapon;
         private item _longsword;
 
         public Knight() : base()
@@ -24,15 +24,24 @@ namespace HelloWorld
             _KnightsHonor = 5;
             _name = "Knight";
             _longsword.damage = 15;
-            currentWeapon = _longsword.damage;
+            
         }
 
         
         //The players attacks in a special way if they are a knight
         public override float BaseAttack(Character enemy)
         {
-
-            float totaldamage = _damage + _KnightsFury + currentWeapon;
+            _defense = 5;
+          
+            float totaldamage = _damage + _KnightsFury + _currentWeapon.damage - _defense;
+            if(enemy is Knight)
+            {
+                totaldamage = _damage + _KnightsFury + _currentWeapon.damage - (_defense + _KnightsHonor);
+            }
+            if (totaldamage < 5)
+            {
+              totaldamage = 0;
+            }
             Console.WriteLine("\nThe knights eyes burn with the fury of a protector amd does more damage!");
             Console.WriteLine("The knight swings at player 2 and gets a swipe dealing " + totaldamage);
             return enemy.TakingDamage(totaldamage);
@@ -43,9 +52,11 @@ namespace HelloWorld
         public override float TakingDamage(float _damageVal)
         {
             Console.WriteLine("The knights armor shines with honor!");
-            _damageVal -= _KnightsHonor;
+            
+           
             return base.TakingDamage(_damageVal);
         }
+
 
 
     }

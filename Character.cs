@@ -8,16 +8,17 @@ namespace HelloWorld
 {
    public class Character
     {
-        protected float _health;
+        public float _health;
         private string _name;
-        private float _defense;
+        protected float _defense;
         public float _damage;
         public item[] _inventory;
-        private item currentWeapon;
+        private item _currentWeapon;
         private item _fists;
         private int _mana;
         public int player1Wins;
         public int player2Wins;
+        public int _ArrowAmount;
        
         
         
@@ -28,11 +29,12 @@ namespace HelloWorld
             _health = 100;
             _name = "Player";
             _defense = 5;
-            _damage = 10;
-            _inventory = new item[4];
+            _damage = 15;
+            _inventory = new item[2];
             _fists.name = "Fists";
             _fists.damage = 1;
             _mana = 100;
+            _ArrowAmount = 15;
       }
 
       public  Character(float _healthVal, string _nameVal, float _defenseVal, float _damageVal)
@@ -47,7 +49,7 @@ namespace HelloWorld
         //Base attack for all players and classes
       public virtual float BaseAttack(Character enemy)
       {
-            float totalDamage = _damage + currentWeapon.damage; 
+            float totalDamage = _damage + _currentWeapon.damage; 
             Console.WriteLine("\nThe other player has taken " + totalDamage + " damage");
             return enemy.TakingDamage(totalDamage);
       }
@@ -75,11 +77,11 @@ namespace HelloWorld
 
             else if(character is Archer)
             {
-                int _arrowcount = 15;
+              
                 _name = "Archer";
                 Console.WriteLine("Chosen Role: " + _name);
                 Console.WriteLine("Health: " + _health);
-                Console.WriteLine("Arrows: " + _arrowcount);
+                Console.WriteLine("Arrows: " + character._ArrowAmount);
             }
 
      }
@@ -87,8 +89,7 @@ namespace HelloWorld
         // Takes all damage and subtracts from enemy health
       public virtual float TakingDamage(float _damageVal)
       {
-            _damageVal += currentWeapon.damage;
-            _damageVal -= _defense;
+           
             _health -= _damageVal;
             if (_health < 0)
             {
@@ -113,9 +114,11 @@ namespace HelloWorld
         {
             if (Contains(itemIndex))
             {
-                currentWeapon = _inventory[itemIndex];
+                _currentWeapon = _inventory[itemIndex];
             }
         }
+
+       
 
         // Adds certain items to the inventory of either player
         public void AddItemToInv(item item, int index)
@@ -155,7 +158,7 @@ namespace HelloWorld
         // Checks to make sure both players are alive in battle;
         public bool StillAlive()
         {
-            return _health > 0;
+            return _health > 1;
         }
 
         // Gets the name of the certain player!
@@ -163,7 +166,15 @@ namespace HelloWorld
         {
             return _name;
         }
-        
-        
-   }
+
+        public virtual float Block()
+        {
+            _defense += 5;
+            if (_defense > 10)
+                _defense = 5;
+            return _defense;
+        }
+
+
+    }
 }

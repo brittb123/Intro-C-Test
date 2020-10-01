@@ -87,7 +87,7 @@ namespace HelloWorld
         public void PrintInventory(item[] inventory)
         {
             Console.WriteLine("\nHere are your choices");
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < inventory.Length; i++)
             {
                
                 Console.WriteLine((i + 1) + ". " + inventory[i].name);
@@ -97,9 +97,30 @@ namespace HelloWorld
                
             }
         }
+        public void SwitchInventory(Character character)
+        {
+            item[] inventory = player1.GetInventory();
+            PrintInventory(inventory);
+            char input2 = Console.ReadKey().KeyChar;
+            switch (input2)
+            {
+                case '1':
+                    {
+                        //Swaps current weapon to selected item
+                        character.EquipItem(0);
+                        break;
+                    }
+                case '2':
+                    {
+                        //Swaps current weapon to selected item
+                        character.EquipItem(1);
+                        break;
+                    }
+            }
 
-        //Select loadouts for each player to begin battles
-        public void SelectLoadouts(Character character)
+        }
+//Select loadouts for each player to begin battles
+public void SelectLoadouts(Character character)
         {
             GetInput("Knight", "Archer", "Wizard", "Player 1 Choose a loadout:");
             Console.WriteLine("Knights have a longsword, a shield, and more armor than normal!");
@@ -189,50 +210,23 @@ namespace HelloWorld
                 GetInput("Attack", "Change Weapon", "Block", "What is your play");
                 input = Console.ReadKey().KeyChar;
                 //If player attacks as a Knight Attack with knight abilites
-                if (input == '1' && player1 is Knight)
+                if (input == '1')
                 {
                     player1.BaseAttack(player2);
                    
                 }
 
-                // If the player is a Archer override the 
-                else if(input == '1' && player1 is Archer)
-                {
-                    player1.BaseAttack(player2);
-                  
-                }
-
-                //The base attack is overrided for wizards
-                else if (input == '1' && player1 is Wizard)
-                {
-                    player1.BaseAttack(player2);
-                }
                 //Opens the inventory and able to switch the weapon using!
-                if(input == '2')
+                if (input == '2')
                 {
-                    item[] inventory = player1.GetInventory();
-                    PrintInventory(inventory);
-                    char input2 = Console.ReadKey().KeyChar;
-                    switch (input)
-                    {
-                        case '1':
-                            {
-                                player1.EquipItem(0);
-                                break;
-                            }
-                        case '2':
-                            {
-                                player1.EquipItem(1);
-                                break;
-                            }
-                    }
-
-                    if(input == '3')
-                    {
-                        Console.WriteLine("Player 1 prepares to block");
-                        player2._damage -= 5;
-                    }
+                    SwitchInventory(player1);
                 }
+
+                if(input == '3')
+                {
+                  player1.Block();
+                }
+                
                 Console.WriteLine("Press any key to continue");
                 Console.ReadKey();
                 //Clears screen for player two's turn
@@ -248,53 +242,22 @@ namespace HelloWorld
                 GetInput("Attack", "Change Weapon", "Block", "What is your play");
                 
                 input = Console.ReadKey().KeyChar;
-                //Overrides the basic attacks depending on player 2s loadout!
-                if (input == '1' && player2 is Knight)
+                if(input == '1')
                 {
-                    //Swaps current weapon to selected item
                     player2.BaseAttack(player1);
                 }
-
-                else if (input == '1' && player2 is Archer) 
-                {
-                    //Swaps current weapon to selected item
-                    player2.BaseAttack(player1);
-                }
-
-                if(input == '1' && player2 is Wizard)
-                {
-                    //Swaps current weapon to selected item
-                    player2.BaseAttack(player1);
-                    player1._damage -= 3;
-                }
+               
 
                 //Player 2 inventory and switch weapon functions!
-                if(input == '2')
+                if (input == '2')
                 {
-                     item[] inventory = player1.GetInventory();
-                     PrintInventory(inventory);
-                     char input2 = Console.ReadKey().KeyChar;
-                     switch (input)
-                     {
-                       case '1':
-                         {
-                              //Swaps current weapon to selected item
-                              player1.EquipItem(0);
-                              break;
-                         }
-                       case '2':
-                          {
-                                //Swaps current weapon to selected item
-                              player1.EquipItem(1);
-                              break;
-                          }
-                     }
+                    SwitchInventory(player2);
                 }
-                //Saves the battle to reload later if application is exited!
+                //Blocks extra damage with defense for the turn!
                 if(input == '3')
                 {
                     Console.WriteLine("Player 2 prepares for an attack!");
-                    player1._damage -= 3;
+                    player2.Block();
                 }
                 Console.WriteLine("\nPress any key to continue");
                 Console.ReadKey();
