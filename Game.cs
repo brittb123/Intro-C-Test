@@ -80,9 +80,13 @@ namespace HelloWorld
         {
             //Creates a new reader and a file
             StreamReader reader = new StreamReader("SaveData.txt");
+
             //Loads the data from the file above and prints
-            player1.Load(reader);
-            player2.Load(reader);
+            string line = reader.ReadLine();
+
+            Console.WriteLine();
+            Console.WriteLine(line);
+
             //Closes the reader
             reader.Close();
         }
@@ -234,7 +238,8 @@ namespace HelloWorld
                 
                 Console.WriteLine("Press any key to continue");
                 Console.ReadKey();
-                //Clears screen for player two's turn
+
+                //Checks if player 2 is still alive after player ones turn 
                 if (player2.StillAlive())
                 {
                     Console.Clear();
@@ -281,10 +286,14 @@ namespace HelloWorld
         public void Run()
         {
             Start();
-            while (_gameOver == false)
+            
+            while (_gameOver == false )
             {
-                Update();
+
+              Update();
+                
             }
+           
             End();
             
         }
@@ -292,6 +301,7 @@ namespace HelloWorld
         //Performed once when the game begins
         public void Start()
         {
+            
             InitalizeItems();
             
         }
@@ -301,6 +311,7 @@ namespace HelloWorld
         {
             
                 SelectLoadouts(player1);
+                 Load();
                 StartBattle();
            
         }
@@ -313,12 +324,15 @@ namespace HelloWorld
             {
                 Console.WriteLine("Player one wins the battle and glory!");
                 player1.player1Wins++;
+                
             }
             if (player2.StillAlive())
             {
                 Console.WriteLine("Player two shows the might they had by being victorious");
                 player2.player2Wins++;
+               
             }
+
             Save();
             
         }

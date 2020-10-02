@@ -36,6 +36,7 @@ namespace HelloWorld
             _huntersFocus = 5;
             _huntersPiercing = 5;
             _knightsDef = 5;
+           
         }
 
         public void ArrowTips(string option1, string option2, string option3, string Query)

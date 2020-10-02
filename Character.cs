@@ -17,8 +17,8 @@ namespace HelloWorld
         public item _currentWeapon;
         private item _fists;
         public int _mana;
-        public int player1Wins;
-        public int player2Wins;
+        public float player1Wins;
+        public float player2Wins;
         public int _ArrowAmount;
        
         
@@ -135,21 +135,25 @@ namespace HelloWorld
         {
             writer.WriteLine("Times player 1 won:" + player1Wins);
             writer.WriteLine("Times player 2 won:" + player2Wins);
-
+           
         }
        //Loads characters from a previous match
         public virtual bool Load(StreamReader reader)
         {
+            float player1victories = 0;
+            float player2victories = 0;
             string name = reader.ReadLine();
-            if (int.TryParse(reader.ReadLine(), out player1Wins) == false)
+            if (float.TryParse(reader.ReadLine(), out player1Wins) == false)
             {
                 return false;
             }
 
-            if (int.TryParse(reader.ReadLine(), out player2Wins) == false)
+            if (float.TryParse(reader.ReadLine(), out player2Wins) == false)
             {
                 return false;
             }
+            player1victories = player1Wins;
+            player2victories = player2Wins;
             return true;
         }
 
