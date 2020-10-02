@@ -8,14 +8,15 @@ namespace HelloWorld
 {
    public class Character
     {
+        //These are the default for each class and player
         public float _health;
         private string _name;
-        protected float _defense;
+        public float _defense;
         public float _damage;
         public item[] _inventory;
-        private item _currentWeapon;
+        public item _currentWeapon;
         private item _fists;
-        private int _mana;
+        public int _mana;
         public int player1Wins;
         public int player2Wins;
         public int _ArrowAmount;
@@ -25,7 +26,7 @@ namespace HelloWorld
 
       public  Character()
       {
-            
+            //Initializes the basic player stats
             _health = 100;
             _name = "Player";
             _defense = 5;
@@ -37,6 +38,7 @@ namespace HelloWorld
             _ArrowAmount = 15;
       }
 
+        //Overloaded constructor for quick use of character creation
       public  Character(float _healthVal, string _nameVal, float _defenseVal, float _damageVal)
       {
             _health = _healthVal;
@@ -59,6 +61,7 @@ namespace HelloWorld
      {
             if(character is Knight)
             {
+                //Prints Knights stats and armor
                 _name = "Knight";
                 Console.WriteLine("Chosen Role: " + _name);
                 Console.WriteLine("Health: " + _health);
@@ -67,29 +70,29 @@ namespace HelloWorld
             }
             else if(character is Wizard)
             {
-                
+                //Prints Wizards stats and mana
                 _name = "Wizard";
                 Console.WriteLine("Chosen Role: " + _name);
                 Console.WriteLine("Health: " + _health);
-                Console.WriteLine("Mana: " + _mana);
+                Console.WriteLine("Mana: " + character._mana);
                 
             }
 
             else if(character is Archer)
             {
-              
+                //Prints Archers stats and arrow amount 
                 _name = "Archer";
                 Console.WriteLine("Chosen Role: " + _name);
                 Console.WriteLine("Health: " + _health);
                 Console.WriteLine("Arrows: " + character._ArrowAmount);
             }
-
+            
      }
 
         // Takes all damage and subtracts from enemy health
       public virtual float TakingDamage(float _damageVal)
       {
-           
+           //Damage is subtracted from health
             _health -= _damageVal;
             if (_health < 0)
             {
@@ -101,7 +104,7 @@ namespace HelloWorld
         //Checks to see if inventory as so said item!
         public bool Contains(int itemIndex)
         {
-            if(itemIndex > 0 && itemIndex < _inventory.Length)
+            if(itemIndex >= 0 && itemIndex < _inventory.Length)
             {
                 return true;
             }
@@ -123,6 +126,7 @@ namespace HelloWorld
         // Adds certain items to the inventory of either player
         public void AddItemToInv(item item, int index)
         {
+            //adds certain item to a certain index
             _inventory[index] = item;
         }
 
@@ -158,7 +162,7 @@ namespace HelloWorld
         // Checks to make sure both players are alive in battle;
         public bool StillAlive()
         {
-            return _health > 1;
+            return _health > 0.0f;
         }
 
         // Gets the name of the certain player!
@@ -167,12 +171,16 @@ namespace HelloWorld
             return _name;
         }
 
-        public virtual float Block()
+        //Player heals for 10 health for their turn
+        public virtual float Heal(Character character)
         {
-            _defense += 5;
-            if (_defense > 10)
-                _defense = 5;
-            return _defense;
+            //Adds characters health by 10
+           character._health += 10;
+            //Checks if health exceeds 10
+            if (character._health > 100)
+               character._health = 100;
+            //Health is returned
+            return character._health;
         }
 
 

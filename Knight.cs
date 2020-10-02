@@ -13,7 +13,7 @@ namespace HelloWorld
         //Knights Attack Boost
         private int _KnightsHonor;
         //Knights Defense boost
-        private item _currentWeapon;
+       
         private item _longsword;
 
         public Knight() : base()
@@ -36,7 +36,7 @@ namespace HelloWorld
             float totaldamage = _damage + _KnightsFury + _currentWeapon.damage - _defense;
             if(enemy is Knight)
             {
-                totaldamage = _damage + _KnightsFury + _currentWeapon.damage - (_defense + _KnightsHonor);
+                totaldamage = _damage + _KnightsFury + _currentWeapon.damage - ( _defense + _KnightsHonor);
             }
             if (totaldamage < 5)
             {

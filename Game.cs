@@ -14,11 +14,9 @@ namespace HelloWorld
     }
     class Game
     {
+       //All important items and and players created
         private Character player1;
         private Character player2;
-        
-
-        
         private Wizard wizard;
         private item _longsword;
         private item _fireScrolls;
@@ -41,6 +39,7 @@ namespace HelloWorld
             _arrows.name = "Arrows";
             _arrows.damage = 5;
             _shield.name = "shield";
+            _shield.damage = 5;
             _fireScrolls.name = "Fireball Scrolls";
             _fireScrolls.damage = 10;
             _lightningScroll.name = "Lightning Scrolls";
@@ -57,6 +56,7 @@ namespace HelloWorld
             Console.WriteLine("3. " + option3);
         }
 
+        //Overloads the first input for only 2 options
         public void GetInput(string option1, string option2, string query)
         {
             Console.WriteLine(query);
@@ -68,6 +68,7 @@ namespace HelloWorld
         //Saves a certain amount of data for later loading and usage
         public void Save()
         {
+            //Creates a new writer
             StreamWriter writer = new StreamWriter("SaveData.txt");
             player1.Save(writer);
             player2.Save(writer);
@@ -77,9 +78,12 @@ namespace HelloWorld
         //Loads the recent stats the players have left off with
         public void Load()
         {
+            //Creates a new reader and a file
             StreamReader reader = new StreamReader("SaveData.txt");
+            //Loads the data from the file above and prints
             player1.Load(reader);
             player2.Load(reader);
+            //Closes the reader
             reader.Close();
         }
 
@@ -99,8 +103,8 @@ namespace HelloWorld
         }
         public void SwitchInventory(Character character)
         {
-            item[] inventory = player1.GetInventory();
-            PrintInventory(inventory);
+            
+            PrintInventory(character._inventory);
             char input2 = Console.ReadKey().KeyChar;
             switch (input2)
             {
@@ -119,20 +123,20 @@ namespace HelloWorld
             }
 
         }
-//Select loadouts for each player to begin battles
-public void SelectLoadouts(Character character)
+        //Select loadouts for each player to begin battles
+        public void SelectLoadouts(Character character)
         {
             GetInput("Knight", "Archer", "Wizard", "Player 1 Choose a loadout:");
             Console.WriteLine("Knights have a longsword, a shield, and more armor than normal!");
             Console.WriteLine("Archers have a bow, arrows, and a dagger for close quarters!");
             Console.WriteLine("Wizards have supreme scolls of fireballs and lightning and only class with mana!");
-            
+
             char input = Console.ReadKey().KeyChar;
             if (input == '1')
             {
                 //Adds player with the knight class and a Knight's Inventory
                 player1 = new Knight();
-               
+
                 player1.AddItemToInv(_longsword, 0);
                 player1.AddItemToInv(_shield, 1);
                 curretWeaponBoost = _longsword.damage;
@@ -141,16 +145,16 @@ public void SelectLoadouts(Character character)
             {
                 //Adds player with the Archer Class and with archery items
                 player1 = new Archer();
-                
-                player1.AddItemToInv(_fireScrolls, 0);
-                player1.AddItemToInv(_lightningScroll, 1);
+
+                player1.AddItemToInv(_Bow, 0);
+                player1.AddItemToInv(_shield, 1);
             }
 
             else if (input == '3')
             {
                 //Add player with the wizard class with magic items
                 player1 = new Wizard();
-               
+
                 player1.AddItemToInv(_fireScrolls, 0);
                 player1.AddItemToInv(_lightningScroll, 1);
             }
@@ -160,22 +164,22 @@ public void SelectLoadouts(Character character)
             Console.WriteLine("Archers have a bow, arrows, and a dagger for close quarters!");
             Console.WriteLine("Wizards have supreme scolls of fireballs and lightning and only class with mana!");
 
-             input = Console.ReadKey().KeyChar;
+            input = Console.ReadKey().KeyChar;
             if (input == '1')
             {
                 //Creates the player 2 if knight selected also sets their current weapon to their main choice!
                 player2 = new Knight();
                 curretWeaponBoost = _longsword.damage;
-                player2.AddItemToInv(_longsword, 0);
-                player2.AddItemToInv(_shield, 1);
+                player2.AddItemToInv(_longsword, 1);
+                player2.AddItemToInv(_shield, 2);
             }
             else if (input == '2')
             {
                 //Creates player 2 as Archer if chosen!
                 player2 = new Archer();
                 curretWeaponBoost = _Bow.damage;
-                player2.AddItemToInv(_fireScrolls, 0);
-                player2.AddItemToInv(_lightningScroll, 1);        
+                player2.AddItemToInv(_Bow, 0);
+                player2.AddItemToInv(_shield, 1);
             }
 
             else if (input == '3')
@@ -207,7 +211,7 @@ public void SelectLoadouts(Character character)
                 char input = ' ';
               
                 Console.WriteLine("\nPlayer One's Turn: ");
-                GetInput("Attack", "Change Weapon", "Block", "What is your play");
+                GetInput("Attack", "Change Weapon", "Heal", "What is your play");
                 input = Console.ReadKey().KeyChar;
                 //If player attacks as a Knight Attack with knight abilites
                 if (input == '1')
@@ -224,45 +228,52 @@ public void SelectLoadouts(Character character)
 
                 if(input == '3')
                 {
-                  player1.Block();
+                  player1.Heal(player1);
+                  Console.WriteLine("Player 2 is tending their wounds " + 10 + " health restored");
                 }
                 
                 Console.WriteLine("Press any key to continue");
                 Console.ReadKey();
                 //Clears screen for player two's turn
-                Console.Clear();
-                Console.WriteLine("\nPlayer One:");
-                player1.PrintStats(player1);
-                Console.WriteLine("\nPlayer 2");
-                player2.PrintStats(player2);
-                //Player Twos turn starts and asks for a decision!
-                input = ' ';
-                Console.WriteLine("\nPlayer Two, Now is the time to attack!");
-                
-                GetInput("Attack", "Change Weapon", "Block", "What is your play");
-                
-                input = Console.ReadKey().KeyChar;
-                if(input == '1')
+                if (player2.StillAlive())
                 {
-                    player2.BaseAttack(player1);
-                }
-               
+                    Console.Clear();
+                    Console.WriteLine("\nPlayer One:");
+                    player1.PrintStats(player1);
+                    Console.WriteLine("\nPlayer 2");
+                    player2.PrintStats(player2);
+                    //Player Twos turn starts and asks for a decision!
+                    input = ' ';
+                    Console.WriteLine("\nPlayer Two, Now is the time to attack!");
 
-                //Player 2 inventory and switch weapon functions!
-                if (input == '2')
-                {
-                    SwitchInventory(player2);
+                    GetInput("Attack", "Change Weapon", "Heal", "What is your play");
+
+                    input = Console.ReadKey().KeyChar;
+                    if (input == '1')
+                    {
+                        player2.BaseAttack(player1);
+                    }
+
+
+                    //Player 2 inventory and switch weapon functions!
+                    if (input == '2')
+                    {
+                        SwitchInventory(player2);
+                    }
+                    //Blocks extra damage with defense for the turn!
+                    if (input == '3')
+                    {
+                        Console.WriteLine("Player 2 is tending their wounds " + 10 + " health restored");
+                        player2.Heal(player2);
+                    }
+                    Console.WriteLine("\nPress any key to continue");
+                    Console.ReadKey();
+                    Console.Clear();
+
                 }
-                //Blocks extra damage with defense for the turn!
-                if(input == '3')
-                {
-                    Console.WriteLine("Player 2 prepares for an attack!");
-                    player2.Block();
-                }
-                Console.WriteLine("\nPress any key to continue");
-                Console.ReadKey();
-                Console.Clear();
+                
             }
+            Console.Clear();
             _gameOver = true;
         }
 
@@ -298,7 +309,7 @@ public void SelectLoadouts(Character character)
         public void End()
         {
 
-            if (player1.StillAlive()) 
+            if (player1.StillAlive())
             {
                 Console.WriteLine("Player one wins the battle and glory!");
                 player1.player1Wins++;
