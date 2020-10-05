@@ -80,12 +80,17 @@ namespace HelloWorld
         {
             //Creates a new reader and a file
             StreamReader reader = new StreamReader("SaveData.txt");
+            if (File.Exists("SaveData.txt"))
+            {
+               
 
-            //Loads the data from the file above and prints
-            string line = reader.ReadLine();
+                //Loads the data from the file above and prints
+                string line = reader.ReadLine();
 
-            Console.WriteLine();
-            Console.WriteLine(line);
+                Console.WriteLine();
+                Console.WriteLine(line);
+            }
+           
 
             //Closes the reader
             reader.Close();
@@ -289,9 +294,10 @@ namespace HelloWorld
             
             while (_gameOver == false )
             {
+              
 
               Update();
-                
+               
             }
            
             End();
@@ -325,6 +331,7 @@ namespace HelloWorld
                 Console.WriteLine("Player one wins the battle and glory!");
                 
                 player1.player1Wins++;
+                Save();
                 
             }
             if (player2.StillAlive())
@@ -332,6 +339,7 @@ namespace HelloWorld
                 Console.WriteLine("Player two shows the might they had by being victorious");
                 
                 player2.player2Wins++;
+                Save();
                 
                 
                
