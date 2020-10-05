@@ -27,7 +27,7 @@ namespace HelloWorld
         public string player1Role;
         public string player2Role;
         public int curretWeaponBoost;
-        public bool _gameOver;
+        private bool _gameOver;
 
         //Gives items names and damage values
         public void InitalizeItems()

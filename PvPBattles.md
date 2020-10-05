@@ -172,3 +172,8 @@ Description: A variable of a weapon that uses a struct to get damage and name.
 _bow
 Type: item, Visibility: Private,
 Description: A variable of the Archer's weapon that a struct gives the name and damage to.
+
+_gameOver
+Type: Bool, Visibility: Private,
+Description: the variable that determines when the game is over. This is used in the battle function
+after a player is defeated and the while loop ends.
