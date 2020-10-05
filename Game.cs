@@ -174,8 +174,8 @@ namespace HelloWorld
                 //Creates the player 2 if knight selected also sets their current weapon to their main choice!
                 player2 = new Knight();
                 curretWeaponBoost = _longsword.damage;
-                player2.AddItemToInv(_longsword, 1);
-                player2.AddItemToInv(_shield, 2);
+                player2.AddItemToInv(_longsword, 0);
+                player2.AddItemToInv(_shield, 1);
             }
             else if (input == '2')
             {
@@ -311,7 +311,7 @@ namespace HelloWorld
         {
             
                 SelectLoadouts(player1);
-                 Load();
+                 
                 StartBattle();
            
         }
@@ -323,17 +323,25 @@ namespace HelloWorld
             if (player1.StillAlive())
             {
                 Console.WriteLine("Player one wins the battle and glory!");
+                
                 player1.player1Wins++;
                 
             }
             if (player2.StillAlive())
             {
                 Console.WriteLine("Player two shows the might they had by being victorious");
+                
                 player2.player2Wins++;
+                
+                
                
             }
+            
+            
+            Console.WriteLine("Press any button to continue");
+            
 
-            Save();
+            
             
         }
     }
