@@ -7,18 +7,19 @@ namespace HelloWorld
     class Knight : Character
     {
         private string _name;
-        private int _stamina;
+      
         private int _armor;
-        private int _KnightsFury;
         //Knights Attack Boost
-        private int _KnightsHonor;
+        private int _KnightsFury;
         //Knights Defense boost
+        private int _KnightsHonor;
+        
        
         private item _longsword;
 
         public Knight() : base()
         {
-            _stamina = 5;
+            
             _armor = 5;
             _KnightsFury = 5;
             _KnightsHonor = 5;

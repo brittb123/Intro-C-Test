@@ -155,6 +155,28 @@ player2Victories are set to the value of 0, and a conditonal is made to check if
 saved data. If the saved data is there, it checks if the data can be converted to a int. The if statement returns true
 if the saved data converted to int else it returns false.
 
+#### Getter Functions
+These functions are for getting and return the function thats needed.
+
+StillAlive()
+Type: Bool, Visibility: Public,
+Description: Returns the health true if players are still alive, and false if the players'
+health.
+
+GetInventory()
+Type: item[], Visbility: Public,
+Description: Returns the players' inventory for changes that needed to be made or added.
+
+GetMana()
+Type: Int, Visibility: Public,
+Description: Gets the mana and returns for spellcasting to take affect.
+
+GetName()
+Type: String, Visbility: Public,
+Description: Gets the name for the role in the print stats function.
+
+
+
 ### Essential Variables
 
 player1
@@ -175,5 +197,112 @@ Description: A variable of the Archer's weapon that a struct gives the name and 
 
 _gameOver
 Type: Bool, Visibility: Private,
-Description: the variable that determines when the game is over. This is used in the battle function
+Description: The variable that determines when the game is over. This is used in the battle function
 after a player is defeated and the while loop ends.
+
+_currentWeapon
+Type: Item, Visibility: Public,
+Description: This variable determines the players current weapon and affects the
+damage values.
+
+_inventory
+Type: item[], Visibilty: Public,
+Description: The variable determines the players inventory, whats in that inventory is shown with a for loop.
+The damage and name values are from a item struct made in class.
+
+_health
+Type: Float, Visibility: Private,
+Description: A variable that controls each players health, default is always set to one hundred, as well is the max is 100 health.
+If the player exceeds 100 health it is automatically set back to 100.
+
+_damage
+Type: Float, Visibility: Public,
+Description: Variable that determines the base damage of each player. The higher the damage value the more damage gets
+pumped into the enemy for a base attack.
+
+_defense
+Type: Float, Visibilty: Public
+Description: The variable that controls how much damage the player ignores. The variable is subtracted from _damage to count for the 
+players defense.
+
+_arrowCount
+Type: Int, Visibility: Public,
+Description: The arrow counter for the print stats function and the Archer's damage. Each attack with the Archer lowers the 
+arrow by 1, and if you run out you lose damage.
+
+_mana
+Type: Int, Visibility: Public,
+Description: This variable is the Wizard's magic the more spells casted the lower it gets. If the Wizard runs out of mana, damage will 
+be dropped byh more than half of the wizards base!
+
+_knightsFury
+Type: Int, Visibility: Public,
+Description: The Knight's Attacking specail skill that boosts the attacks by 5 damage. This 
+damage is only added if the attacking player is a Knight.
+
+_knightsHonor
+Type: Int, Visibility: Public,
+Description: The Knight's defensive special skill that blocks an extra 5 damage, only obtained by being 
+a Knight.
+
+_huntersFocus
+Type: Int, Visibility: Private,
+Description: The Archer's Attack ability that adds an extra 5 damage and only if the player attacking is a Archer
+and that player is above 80 health.
+
+_hunterPiercing
+Type: Int, Visibility: Private,
+Description: Arrow tips are given an extra 5 damage to any target if the player is attacking as an Archer.
+
+_arrowQuiver 
+Type: item[], Visibility: Private,
+Description: This is the array that holds the arrow tips explosive, shock, and ice.
+
+_explosiveArrows
+Type: item, Visibility: Private,
+Description: A type of damage modifier that changes which arrow chosen. Damage and name is used
+from the item struct and used in the arrow quiver inventory.
+
+_shockArrows
+Type: item, Visibility: Private,
+Description: A type of arrow in arrow quiver that does less than explosive but more than the
+frost arrows.
+
+_iceArrows
+Type: item, Visibility: Private,
+Description: A type of arrow in the arrow quiver that has the least damage modifier.
+
+totalDamage
+Type: Float, Visibility: Parameter,
+Description: A essential float that adds the damage modifiers then subtracts that sum from the 
+defense and abilities of that enemy.
+
+_name
+Type: String, Visibility: Public,
+Description: The string that displays the role name of the players choice.
+
+_fireballScroll
+Type: item, Visibility: Private,
+Description: A variable that is given a name and damage value through the struct item.
+
+_manaCount
+Type: Int, Visibility: Public,
+Description: A wizard only variable that displays the mana and keeps track if spells can be casted.
+
+
+## Flow of the Game
+### Class Selection
+The first part is always the two player giving input and selecting their loadouts,
+roles, and special skills. The player can branch into three choices, Knight calls Chracter
+class and creates the player for whichever decision made
+
+### Battling
+Once the player finish the class selection, the battling phase begins with the screen 
+clearing and the players' stats are printed to the console with a function. The player can
+attack, which calls the players' specific BaseAttack function or the player can also choose 
+to heal which leads to calling the Heal() function stated earlier. The player also has a choice
+to switch weapons which callse the menu and the function SwitchInventory().
+
+### Switch Inventory
+This part can be accesed anytime during
+

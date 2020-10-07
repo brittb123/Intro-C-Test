@@ -7,16 +7,18 @@ namespace HelloWorld
     class Archer : Character
     {
         public int _arrowcount;
-        // Does extra damage if above 80 health but lose damage belove 50 health
+        // Does extra damage if above 80 health but lose damage below 50 health
         private int _huntersFocus;
         // Adds an extra +5 to damage for piercing arrows
         private int _huntersPiercing;
-        //Bandits and evil classes take more damage
-        private int _banditHunter;
+        
         private string _name;
         private item[] _arrowQuiver;
+        //Explosive tips deal extra damage
         private item _explosiveArrows;
+        //Shock dont do as much but a decent damage modifier
         private item _shockArrows;
+        //Ice arrows deal less than the rest
         private item _iceArrows;
         private int _knightsDef;
         public int _arrowCount;
@@ -31,7 +33,7 @@ namespace HelloWorld
             _shockArrows.damage = 20;
             _iceArrows.name = "Freezing Tips";
             _iceArrows.damage = 15;
-            _banditHunter = 5;
+            
             _arrowCount = 15;
             _huntersFocus = 5;
             _huntersPiercing = 5;

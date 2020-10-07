@@ -9,7 +9,7 @@ namespace HelloWorld
    public class Character
     {
         //These are the default for each class and player
-        public float _health;
+        private float _health;
         private string _name;
         public float _defense;
         public float _damage;
