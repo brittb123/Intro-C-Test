@@ -304,5 +304,12 @@ to heal which leads to calling the Heal() function stated earlier. The player al
 to switch weapons which callse the menu and the function SwitchInventory().
 
 ### Switch Inventory
-This part can be accesed anytime during
+This part can be accesed anytime during the battle phase by each player. This is just a simple
+branch of flow as players can switch weapons to modify their damage output. Once the players
+choose the weapon the menu closes and the battle contiues unless a player dies.
+
+### Victorious
+Once the players are finished in the battling phase, the player that is victorious will get a win
+message and add a value to the counter of the wins for each player. The screen will not display more
+until a key is pressed, and once pressed the game will exit.
 
